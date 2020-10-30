@@ -15,10 +15,10 @@ limitations under the License.*/
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pscalc/model/psclient.dart';
+import 'package:pscalc/model/calculate_model.dart';
 
 class FormView extends StatefulWidget {
-  final PSClient model;
+  final CalculateModel model;
 
   const FormView({Key key, this.model}) : super(key: key);
 
@@ -29,7 +29,7 @@ class FormView extends StatefulWidget {
 }
 
 class FormViewState extends State<FormView> {
-  final PSClient model;
+  final CalculateModel model;
   final _formKey = GlobalKey<FormState>();
   final _ageYearController = TextEditingController();
   final _ageMonthController = TextEditingController();
@@ -72,7 +72,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeYears,
+                        validator: model.validateYear,
                       ),
                     ),
                     SizedBox(
@@ -89,7 +89,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeMonths,
+                        validator: model.validateMonths,
                       ),
                     ),
                   ],
@@ -117,7 +117,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeYears,
+                        validator: model.validateYear,
                       ),
                     ),
                     SizedBox(
@@ -134,7 +134,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeMonths,
+                        validator: model.validateMonths,
                       ),
                     ),
                   ],
@@ -162,7 +162,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeYears,
+                        validator: model.validateYear,
                       ),
                     ),
                     SizedBox(
@@ -179,7 +179,7 @@ class FormViewState extends State<FormView> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textAlign: TextAlign.center,
-                        validator: model.validateAgeMonths,
+                        validator: model.validateMonths,
                       ),
                     ),
                   ],
@@ -188,13 +188,13 @@ class FormViewState extends State<FormView> {
               FlatButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    model.ageYears = _ageYearController.text;
-                    model.ageMonths = _ageMonthController.text;
-                    model.separYears = _separYearController.text;
-                    model.separMonths = _separMonthController.text;
-                    model.diagYears = _diagYearController.text;
-                    model.diagMonths = _diagMonthController.text;
-                    model.save();
+                    model.createClient(
+                        _ageYearController.text,
+                        _ageMonthController.text,
+                        _separYearController.text,
+                        _separMonthController.text,
+                        _diagYearController.text,
+                        _diagMonthController.text);
                   }
                 },
                 child: Text(

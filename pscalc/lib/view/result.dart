@@ -13,10 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 
 import 'package:flutter/material.dart';
-import 'package:pscalc/model/psclient.dart';
+import 'package:pscalc/domain/psclient.dart';
+import 'package:pscalc/model/calculate_model.dart';
 
 class ResultView extends StatefulWidget {
-  final PSClient model;
+  final CalculateModel model;
 
   const ResultView({Key key, this.model}) : super(key: key);
 
@@ -27,16 +28,26 @@ class ResultView extends StatefulWidget {
 }
 
 class ResultViewState extends State<ResultView> {
-  final PSClient model;
+  final CalculateModel model;
 
   ResultViewState(this.model);
 
   @override
   Widget build(BuildContext context) {
-    if (model.ready) {
-      return Text(model.toString());
-    } else {
-      return Text("data");
-    }
+    return StreamBuilder<PSClient>(
+      initialData: null,
+      stream: model.clientChanged.stream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            print('snapshot ${snapshot.data.ageYears}');
+            return Text(snapshot.data.ageYears.toString());
+          } else {
+            return Text("data");
+          }
+        }
+        return Container();
+      },
+    );
   }
 }

@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 
 import 'package:flutter/material.dart';
-import 'package:pscalc/model/psclient.dart';
+import 'package:pscalc/model/calculate_model.dart';
 import 'package:pscalc/view/form.dart';
 import 'package:pscalc/view/result.dart';
 
@@ -45,7 +45,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final model = PSClient();
+    final model = CalculateModel();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -54,12 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            FormView(
-              model: model,
-            ),
-            ResultView(
-              model: model,
-            )
+            FormView(model: model),
+            ResultView(model: model),
           ],
         ),
       ),
